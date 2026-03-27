@@ -219,7 +219,7 @@ Le stringhe si concatenano con `+`:
 ```cucci
 xHello
 yWorld
-z x+y
+zx+y
 .z
 ```
 
@@ -297,8 +297,8 @@ Output: `42`
 A10
 B3
 CA+B
-D A*B
-E A%B
+DA*B
+EA%B
 .C
 .D
 .E
