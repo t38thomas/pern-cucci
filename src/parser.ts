@@ -6,7 +6,8 @@ import { CucciSyntaxError } from './errors';
 export class Parser {
     private env: Environment;
     private pos: number = 0;
-    private input: string = "";
+    private input: string[] = [];
+    private segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
     private parsingOverloads: { name: string, arity: number }[] = [];
     private isAtomic: boolean = false;
 
@@ -31,10 +32,10 @@ export class Parser {
     }
 
     public parseLine(line: string): Stmt {
-        this.input = line;
+        this.input = Array.from(this.segmenter.segment(line)).map(s => s.segment);
         this.pos = 0;
 
-        if (this.input[0] === '$') return this.parseFuncDef();
+        if (this.input.length > 0 && this.input[0] === '$') return this.parseFuncDef();
 
         try {
             this.pos = 0;
