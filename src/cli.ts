@@ -31,7 +31,7 @@ export function run() {
 
     const env = new Environment();
     const parser = new Parser(env);
-    const interpreter = new Interpreter(env);
+    const interpreter = new Interpreter(env, (val) => console.log(val));
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i].trim();

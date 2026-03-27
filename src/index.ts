@@ -4,3 +4,4 @@ export * from './errors';
 export * from './environment';
 export * from './parser';
 export * from './interpreter';
+export * from './api';

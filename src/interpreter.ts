@@ -5,8 +5,12 @@ import { CucciRuntimeError } from './errors';
 
 export class Interpreter {
     private env: Environment;
+    private onOutput?: (val: number | string) => void;
 
-    constructor(env: Environment) { this.env = env; }
+    constructor(env: Environment, onOutput?: (val: number | string) => void) {
+        this.env = env;
+        this.onOutput = onOutput;
+    }
 
     /**
      * Executes a Statement line by line in-place,
@@ -81,7 +85,11 @@ export class Interpreter {
         const operand = this.evaluate(expr.operand);
 
         if (expr.operator === '.') {
-            console.log(operand);
+            if (this.onOutput) {
+                this.onOutput(operand);
+            } else {
+                console.log(operand);
+            }
             return operand;
         }
 
