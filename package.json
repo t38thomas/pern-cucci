@@ -3,11 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/",
+    "bin/",
+    "DOCS.md",
+    "README.md"
+  ],
   "scripts": {
     "test": "tsc && node --test dist/tests/",
     "build": "tsc"
   },
-  "keywords": [],
+  "keywords": [
+    "cucci",
+    "language",
+    "interpreter",
+    "esoteric"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
