@@ -8,6 +8,7 @@ export class Parser {
     private pos: number = 0;
     private input: string = "";
     private parsingOverloads: { name: string, arity: number }[] = [];
+    private isAtomic: boolean = false;
 
     constructor(env: Environment) { this.env = env; }
 
@@ -201,7 +202,15 @@ export class Parser {
                     try {
                         const args: Expr[] = [];
                         for (let i = 0; i < arity; i++) {
-                            args.push(this.parseUnary());
+                            const oldAtomic = this.isAtomic;
+                            // Forced atomic (1-char) for all but the last argument
+                            if (i < arity - 1) this.isAtomic = true;
+                            
+                            try {
+                                args.push(this.parseUnary());
+                            } finally {
+                                this.isAtomic = oldAtomic;
+                            }
                         }
                         return { type: 'CallExpr', callee: c, args };
                     } catch (e) {
@@ -234,6 +243,7 @@ export class Parser {
             const c = this.peek();
             if ((this.isDigitRaw(c) || c === '.') && !this.isDefinedInEnv(c)) {
                 str += this.consume();
+                if (this.isAtomic) break; // Consume only one unit if forced atomic
             } else break;
         }
         return { type: 'NumberLiteral', value: parseFloat(str) };
@@ -248,6 +258,7 @@ export class Parser {
             if (this.isDigitRaw(c) && !this.isDefinedInEnv(c)) break;
             
             str += this.consume();
+            if (this.isAtomic) break; // Consume only one char if forced atomic
         }
         if (str.length === 0) throw new CucciSyntaxError(`Unresolvable token '${this.peek()}'`);
         return { type: 'StringLiteral', value: str };

@@ -1,4 +1,11 @@
-xciao mondo
-.x
+$fab:a+b
+x5
+y3
+.fxy
+.f12
+59
+.f52
+.5
 $fn:(n=0)+(n>0)*(n*f(n-1))
+.f6
 .f5
