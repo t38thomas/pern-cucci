@@ -1,0 +1,4 @@
+xciao mondo
+.x
+$fn:(n=0)+(n>0)*(n*f(n-1))
+.f5

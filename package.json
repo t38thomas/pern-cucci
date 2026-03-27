@@ -1,0 +1,21 @@
+{
+  "name": "pern-cucci",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "tsc && node --test dist/tests/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  },
+  "bin": {
+    "pern": "./bin/pern.js"
+  }
+}
